@@ -1,0 +1,11 @@
+From fedora:latest
+
+MAINTAINER https://github.com/fedora-iot/iot-distro/issues
+
+RUN dnf -y install --setopt=install_weak_deps=False nginx && dnf clean all
+RUN echo "daemon off;" >> /etc/nginx/nginx.conf
+RUN echo "nginx on Fedora" > /usr/share/nginx/html/index.html
+
+EXPOSE 80
+
+CMD [ "/usr/sbin/nginx" ]
