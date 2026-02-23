@@ -1,0 +1,14 @@
+From fedora:latest
+
+MAINTAINER https://github.com/nullr0ute/containers
+LABEL description="Eclipse Mosquitto MQTT Broker on Fedora"
+
+RUN dnf -y install --setopt=install_weak_deps=False mosquitto && dnf clean all
+
+VOLUME ["/mosquitto/data", "/mosquitto/log"]
+
+# Set up the entry point script and default command
+COPY mosquitto-entrypoint.sh mosquitto-no-auth.conf /
+EXPOSE 1883 8080
+ENTRYPOINT ["/mosquitto-entrypoint.sh"]
+CMD ["/usr/sbin/mosquitto", "-c", "/mosquitto-no-auth.conf"]
